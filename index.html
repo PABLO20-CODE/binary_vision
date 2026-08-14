@@ -3,73 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Binary Vision | Pablo Canché</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<title>Binary Vision | Desarrollo Web, Automatización, Soluciones Digitales</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+:root{
+ --bg:#fcfcfa;
+ --text:#111;
+ --muted:#8a8a8a;
+ --line:#e9e9e7;
+ --blue:#1a3cff;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a1931;color:#e8e8e8;font-family:'Inter',sans-serif;overflow-x:hidden}
-#particles{position:fixed;inset:0;z-index:0;opacity:.25}
-.hero{position:relative;z-index:1;min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px}
-.logo-bv{width:320px;max-width:75vw}
-.logo-bv img{width:100%;filter:brightness(1.1)}
-.tagline{margin-top:15px;letter-spacing:4px;font-size:.85rem;color:#a8b8d0;text-transform:uppercase;font-weight:300}
-.contact{background:#0a1931;position:relative;z-index:1;padding:80px 25px;display:flex;flex-wrap:wrap;justify-content:center;gap:60px;align-items:center;border-top:1px solid rgba(255,255,255,.08)}
-.contact-left{min-width:300px;max-width:380px}
-.contact-logo{width:200px;margin-bottom:10px;filter:brightness(1.2)}
-.contact-sub{color:#8a9bb5;font-size:.85rem;letter-spacing:1px;margin-top:5px}
-.contact-left h2{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:300;margin-top:50px;color:#f5f5f5}
-.contact-line{width:140px;height:1px;background:#5a6a80;margin:18px 0 40px}
-.info-item{display:flex;gap:18px;margin:28px 0;align-items:center}
-.info-icon{width:28px;height:28px;stroke:#8a9bb5;fill:none;stroke-width:1.5}
-.info-item small{color:#8a9bb5;font-size:.9rem}
-.info-item strong{color:#e0e0e0;font-weight:400;font-size:1.05rem}
-.btn-msg{display:inline-block;margin-top:30px;padding:14px 38px;border:1px solid #6a7d96;color:#c0cfdf;text-decoration:none;transition:.3s}
-.btn-msg:hover{background:rgba(255,255,255,.05);border-color:#a0b0c8;color:white}
-.contact-right{max-width:520px;width:100%;border:1px solid rgba(255,255,255,.15);padding:10px;background:rgba(255,255,255,.02)}
-.contact-right img{width:100%;display:block}
-@media(max-width:800px){.contact-left h2{font-size:2.8rem}}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden}
+.serif{font-family:'Instrument Serif',serif}
+nav{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:28px 48px;z-index:100;background:rgba(252,252,250,0.85);backdrop-filter:blur(12px)}
+.logo{display:flex;align-items:center;gap:12px;font-weight:600;letter-spacing:.12em;font-size:13px}
+.logo img{width:32px;height:32px;object-fit:contain;border-radius:6px}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--text);font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;opacity:.7}
+.nav-cta .btn-pill{border:1px solid var(--text);border-radius:100px;padding:10px 22px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--text)}
+.hero{padding:160px 48px 80px;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;min-height:90vh}
+.hero h1{font-size:clamp(52px,8vw,112px);line-height:.9;letter-spacing:-.04em;font-weight:400}
+.hero h1 i{font-style:italic;color:var(--muted)}
+.hero-desc{font-size:16px;line-height:1.6;color:var(--muted);max-width:340px}
+.toggle-wrap{display:flex;align-items:center;gap:16px;margin-top:24px}
+.toggle{width:72px;height:36px;background:var(--blue);border-radius:100px;display:flex;align-items:center;padding:4px}
+.toggle-dot{width:28px;height:28px;background:white;border-radius:50%;margin-left:auto;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.toggle-label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.hero-image{grid-column:1 / -1;margin-top:60px;border-radius:24px;overflow:hidden;height:58vh;background:#eee}
+.hero-image img{width:100%;height:100%;object-fit:cover}
+.section{padding:120px 48px;border-top:1px solid var(--line)}
+.section-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:72px}
+.section-head h2{font-size:clamp(36px,5vw,64px);line-height:.95;letter-spacing:-.03em;max-width:520px}
+.section-head p{max-width:360px;font-size:14px;line-height:1.6;color:var(--muted);text-align:right}
+.workspaces{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{border-radius:20px;overflow:hidden;background:white;border:1px solid var(--line)}
+.card-img{height:420px;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.card-info{padding:22px 24px;display:flex;justify-content:space-between}
+.card-info h4{font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.service{background:white;padding:36px 32px;min-height:260px;display:flex;flex-direction:column;justify-content:space-between}
+.service .num{font-size:11px;letter-spacing:.15em;color:var(--muted);margin-bottom:24px;display:block}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.contact-grid h2{font-size:clamp(42px,6vw,88px);line-height:.9;letter-spacing:-.04em}
+.btn-black{background:#111;color:white;border-radius:100px;padding:18px 32px;text-decoration:none;display:inline-flex;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-top:32px}
+footer{padding:48px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding:120px 20px 40px}.section{padding:80px 20px}.section-head{flex-direction:column}.workspaces{grid-template-columns:1fr}.services{grid-template-columns:1fr 1fr}.contact-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<canvas id="particles"></canvas>
-<div class="hero">
-  <div class="logo-bv"><img src="logo.png" alt="Binary Vision"></div>
-  <div class="tagline">Desarrollo web, Automatización, Soluciones Digitales</div>
-</div>
-<section class="contact">
-  <div class="contact-left">
-    <img src="logo.png" class="contact-logo" alt="BV">
-    <div class="contact-sub">Desarrollo web, Automatización, Soluciones Digitales</div>
-    <h2>Contact</h2>
-    <div class="contact-line"></div>
-    <div class="info-item">
-      <svg class="info-icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M2 6l10 7 10-7"></path></svg>
-      <div><small>Email</small><br><strong>pablo@binaryvision.com</strong></div>
-    </div>
-    <div class="info-item">
-      <svg class="info-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2 1.18 2 2 0 0 1 4 1h3a2 2 0 0 1 2 1.72c.13.95.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-      <div><small>Phone</small><br><strong><a href="https://wa.me/529912040186" style="color:inherit;text-decoration:none">+52 991 204 0186</a></strong></div>
-    </div>
-    <div class="info-item">
-      <svg class="info-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-      <div><small>Location</small><br><strong>Cansahcab, Yucatán, Mexico</strong></div>
-    </div>
-    <div class="info-item">
-      <svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
-      <div><small>Business Hours</small><br><strong>Mon — Fri | 9:00 — 18:00</strong></div>
-    </div>
-    <a href="https://wa.me/529912040186?text=Hola%20Pablo%2C%20vi%20tu%20web%20Binary%20Vision" class="btn-msg">Send a Message</a>
-  </div>
-  <div class="contact-right">
-    <img src="pablo-original.jpeg" alt="Pablo Canché">
+<nav>
+  <div class="logo"><img src="logo.png"><span>BINARY VISION</span></div>
+  <ul class="nav-links"><li><a href="#work">Workspaces</a></li><li><a href="#services">Services</a></li><li><a href="#contact">Contact</a></li></ul>
+  <div class="nav-cta"><a class="btn-pill" href="https://wa.me/529912040186" target="_blank">Let's Talk</a></div>
+</nav>
+<section class="hero">
+  <h1 class="serif">Improving a <i>More Sustainable</i> Future — by Pablo.</h1>
+  <div><p class="hero-desc">En Binary Vision creamos desarrollo web, automatización y soluciones digitales minimalistas, rápidas y que venden. Desde Cansahcab, Yucatán para todo México.</p><div class="toggle-wrap"><div class="toggle"><div class="toggle-dot"></div></div><span class="toggle-label">Available for new projects</span></div></div>
+  <div class="hero-image"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000" alt=""></div>
+</section>
+<section id="work" class="section">
+  <div class="section-head"><h2 class="serif">Discover Our Workspaces & Selected Works</h2><p>Proyectos reales que combinan estética premium, rendimiento y automatización.</p></div>
+  <div class="workspaces">
+    <div class="card"><div class="card-img"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800"></div><div class="card-info"><h4>Landing Pages</h4><span>2026</span></div></div>
+    <div class="card"><div class="card-img"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800"></div><div class="card-info"><h4>E-Commerce</h4><span>2026</span></div></div>
+    <div class="card"><div class="card-img"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800"></div><div class="card-info"><h4>Automatización</h4><span>2026</span></div></div>
   </div>
 </section>
-<script>
-const c=document.getElementById('particles'),ctx=c.getContext('2d');
-function resize(){c.width=innerWidth;c.height=innerHeight}resize();
-let dots=[];for(let i=0;i<50;i++)dots.push({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2});
-function draw(){ctx.clearRect(0,0,c.width,c.height);dots.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,1,0,Math.PI*2);ctx.fillStyle='rgba(160,190,220,0.3)';ctx.fill();});dots.forEach((a,i)=>{dots.slice(i+1).forEach(b=>{let d=Math.hypot(a.x-b.x,a.y-b.y);if(d<130){ctx.strokeStyle=`rgba(160,190,220,${0.07*(1-d/130)})`;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}})});requestAnimationFrame(draw);}draw();
-window.addEventListener('resize',resize);
-</script>
+<section id="services" class="section">
+  <div class="section-head"><h2 class="serif">This is what we do best.</h2><p>Sin plantillas genéricas. Código limpio y diseño editorial de alto nivel.</p></div>
+  <div class="services">
+    <div class="service"><span class="num">01</span><div><h3>Desarrollo Web Premium</h3><p>Webs rápidas, responsive y optimizadas para SEO.</p></div></div>
+    <div class="service"><span class="num">02</span><div><h3>Automatización</h3><p>WhatsApp, CRM, pagos, reservas. Automatizamos tu negocio.</p></div></div>
+    <div class="service"><span class="num">03</span><div><h3>Soluciones Digitales</h3><p>Hosting, dominio y soporte incluido.</p></div></div>
+    <div class="service"><span class="num">04</span><div><h3>Branding</h3><p>Identidad, logo y contenido premium.</p></div></div>
+  </div>
+</section>
+<section id="contact" class="section">
+  <div class="contact-grid">
+    <div><h2 class="serif">Let's talk about your project —</h2><div style="margin-top:32px;border-radius:20px;overflow:hidden;height:420px;background:#eee"><img src="pablo-original.jpeg" style="width:100%;height:100%;object-fit:cover"></div></div>
+    <div><div style="display:grid;gap:24px;margin-top:40px"><div><label style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#8a8a8a">Email</label><p>contacto@binaryvision.com</p></div><div><label style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#8a8a8a">WhatsApp</label><p>+52 991 204 0186</p></div><div><label style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#8a8a8a">Location</label><p>Cansahcab, Yucatán, México</p></div></div><a class="btn-black" href="https://wa.me/529912040186?text=Hola%20Pablo%20vi%20tu%20web" target="_blank">Send Message via WhatsApp</a></div>
+  </div>
+</section>
+<footer><span>© 2026 Binary Vision</span><span>MERIDA, Yucatán — México</span></footer>
 </body>
 </html>
