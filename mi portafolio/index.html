@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Binary Vision | Pablo Canché - Brilliant • Innovative • Visionary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== RESET & ROOT ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --bg: #f4f6fa;
+            --text: #0a1628;
+            --muted: #7a8aa0;
+            --line: #d5dee8;
+            --blue: #0055a4;
+            --blue-light: #2a7fd4;
+            --blue-dark: #003d7a;
+            --silver: #b8c4d0;
+            --silver-light: #e8edf4;
+            --white: #ffffff;
+            --highlight: #8a9aaa;
+            --glow: rgba(0, 85, 164, 0.12);
+            --radius: 24px;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        .serif {
+            font-family: 'Instrument Serif', serif;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* =============================================
+                   PRELOADER / BIENVENIDA
+                ============================================= */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #f0f4fa 0%, #dce4ed 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 3.5s ease, visibility 3.5s ease;
+        }
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .preloader-logo {
+            position: relative;
+            animation: logoAppear 2.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            opacity: 0;
+            transform: scale(0.80);
+        }
+        .preloader-logo img {
+            height: 100px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 4px 30px rgba(0, 85, 164, 0.15));
+        }
+        .preloader-logo::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -80%;
+            width: 60%;
+            height: 140%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transform: rotate(25deg);
+            animation: shineSweep 3.5s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+        }
+        @keyframes shineSweep {
+            0% {
+                left: -80%;
+            }
+            100% {
+                left: 120%;
+            }
+        }
+        @keyframes logoAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.80) rotate(-3deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .preloader-btn {
+            margin-top: 36px;
+            background: transparent;
+            border: 1px solid var(--silver);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 400;
+            padding: 16px 40px;
+            border-radius: 60px;
+            transition: all 0.4s ease;
+            animation: pulseBtn 2.8s ease-in-out infinite;
+        }
+        .preloader-btn:hover {
+            color: var(--blue);
+            border-color: var(--blue);
+            background: rgba(0, 85, 164, 0.05);
+            box-shadow: 0 0 40px rgba(0, 85, 164, 0.10);
+            transform: scale(1.04);
+        }
+        .preloader-btn:active {
+            transform: scale(0.96);
+        }
+        .preloader-btn::after {
+            content: ' ▶';
+            font-size: 12px;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+        .preloader-btn:hover::after {
+            opacity: 1;
+        }
+        @keyframes pulseBtn {
+            0%,
+            100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .preloader-sub {
+            margin-top: 16px;
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: var(--silver);
+            font-weight: 300;
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(28px);
+            transition: all 1.4s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+            user-select: none;
+        }
+        .preloader-sub.visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+        .click-hint {
+            margin-top: 10px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--silver);
+            opacity: 0.4;
+            font-weight: 300;
+            transition: opacity 0.6s ease;
+        }
+        .click-hint.hidden {
+            opacity: 0;
+        }
+
+        /* Partículas */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: rgba(0, 85, 164, 0.10);
+            border-radius: 50%;
+            animation: floatParticle 14s infinite ease-in-out;
+        }
+        .particle:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; width: 7px; height: 7px; }
+        .particle:nth-child(2) { top: 25%; left: 85%; animation-delay: 1.4s; }
+        .particle:nth-child(3) { top: 70%; left: 5%; animation-delay: 2.8s; width: 9px; height: 9px; }
+        .particle:nth-child(4) { top: 80%; left: 90%; animation-delay: 4.2s; }
+        .particle:nth-child(5) { top: 45%; left: 50%; animation-delay: 5.6s; width: 6px; height: 6px; }
+        .particle:nth-child(6) { top: 10%; left: 45%; animation-delay: 0.7s; }
+        .particle:nth-child(7) { top: 60%; left: 70%; animation-delay: 2.1s; }
+        .particle:nth-child(8) { top: 90%; left: 30%; animation-delay: 3.5s; }
+        @keyframes floatParticle {
+            0%,
+            100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+            25% { transform: translate(50px, -60px) scale(1.6); opacity: 0.7; }
+            50% { transform: translate(-40px, -100px) scale(0.6); opacity: 0.3; }
+            75% { transform: translate(60px, -50px) scale(1.4); opacity: 0.6; }
+        }
+
+        /* =============================================
+                   SITIO PRINCIPAL
+                ============================================= */
+        #main-content {
+            opacity: 0;
+            transition: opacity 3.5s ease;
+        }
+        #main-content.visible {
+            opacity: 1;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 48px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid transparent;
+            transition: all 0.4s ease;
+        }
+        nav.scrolled {
+            border-bottom: 1px solid var(--line);
+            box-shadow: 0 4px 30px var(--glow);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+        .logo img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+        }
+        .logo .slogan {
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            color: var(--muted);
+            font-weight: 300;
+            text-transform: uppercase;
+            border-left: 1px solid var(--line);
+            padding-left: 14px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 12px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            font-weight: 500;
+            opacity: .65;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--blue);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 12px var(--blue-light);
+        }
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--blue);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-cta .btn-pill {
+            border: 1.5px solid var(--blue);
+            border-radius: 60px;
+            padding: 10px 28px;
+            font-size: 11px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--blue);
+            transition: all 0.4s ease;
+            font-weight: 600;
+            background: transparent;
+        }
+        .nav-cta .btn-pill:hover {
+            background: var(--blue);
+            color: white;
+            box-shadow: 0 0 30px var(--glow);
+            transform: translateY(-2px);
+        }
+
+        /* =============================================
+                   HERO – CON BOTONES PRO
+                ============================================= */
+        .hero {
+            padding: 180px 0 80px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(145deg, #f0f4fa 0%, #dce4ed 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -10%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(0, 85, 164, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: clamp(48px, 7vw, 100px);
+            line-height: 0.92;
+            letter-spacing: -0.04em;
+            font-weight: 400;
+            color: var(--text);
+        }
+        .hero h1 .highlight {
+            color: var(--highlight);
+            font-style: italic;
+            background: linear-gradient(135deg, #8a9aaa 0%, #c8d4e0 50%, #8a9aaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero h1 i {
+            font-style: italic;
+            color: var(--muted);
+        }
+        .hero h1 .name {
+            color: var(--highlight);
+            font-weight: 700;
+            background: linear-gradient(135deg, #6a7a8a 0%, #aabbcc 50%, #6a7a8a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: 18px;
+            line-height: 1.9;
+            color: var(--muted);
+            max-width: 480px;
+            margin-top: 8px;
+        }
+        .hero-desc strong {
+            color: var(--text);
+        }
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+        }
+        .hero-badges .badge {
+            background: var(--white);
+            padding: 8px 22px;
+            border-radius: 60px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text);
+            border: 1px solid var(--line);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+        }
+        .hero-badges .badge.blue {
+            background: var(--blue);
+            color: white;
+            border-color: var(--blue);
+        }
+
+        /* ===== BOTONES PRO (Hero) ===== */
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 32px;
+        }
+        .btn-primary {
+            background: var(--blue);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 60px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 4px 24px rgba(0, 85, 164, 0.25);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 85, 164, 0.35);
+        }
+        .btn-primary:active {
+            transform: scale(0.96);
+        }
+        .btn-primary i {
+            font-size: 18px;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1.5px solid var(--line);
+            padding: 16px 40px;
+            border-radius: 60px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            background: rgba(0, 85, 164, 0.04);
+            transform: translateY(-4px);
+        }
+        .btn-secondary i {
+            font-size: 16px;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        .btn-secondary:hover i {
+            opacity: 1;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1.5px solid var(--muted);
+            padding: 16px 40px;
+            border-radius: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        .btn-outline:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            background: rgba(0, 85, 164, 0.04);
+            transform: translateY(-4px);
+        }
+
+        .hero-image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            height: 420px;
+            background: var(--silver-light);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+        }
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* =============================================
+                   SECCIONES
+                ============================================= */
+        .section {
+            padding: 100px 0;
+            border-top: 1px solid var(--line);
+        }
+        .section.bg-white {
+            background: var(--white);
+        }
+        .section.bg-light {
+            background: var(--bg);
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 60px;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .section-head h2 {
+            font-size: clamp(32px, 4vw, 52px);
+            line-height: 1;
+            letter-spacing: -0.03em;
+            max-width: 560px;
+        }
+        .section-head h2 .blue {
+            color: var(--blue);
+        }
+        .section-head p {
+            max-width: 400px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--muted);
+            text-align: right;
+        }
+
+        /* ===== WORKS ===== */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--white);
+            border: 1px solid var(--line);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px var(--glow);
+            border-color: var(--blue);
+        }
+        .card-img {
+            height: 300px;
+            overflow: hidden;
+        }
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .card:hover .card-img img {
+            transform: scale(1.06);
+        }
+        .card-body {
+            padding: 24px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-body h4 {
+            font-size: 14px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .card-body span {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* ===== SERVICES ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .service-item {
+            background: var(--white);
+            padding: 40px 32px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s ease;
+        }
+        .service-item:hover {
+            background: var(--silver-light);
+            transform: scale(1.02);
+            box-shadow: 0 0 40px var(--glow);
+            z-index: 2;
+            position: relative;
+        }
+        .service-item .num {
+            font-size: 12px;
+            letter-spacing: .18em;
+            color: var(--blue);
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .service-item h3 {
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .service-item p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* ===== ABOUT ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+        .about-text p {
+            font-size: 17px;
+            line-height: 1.9;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+        .about-text .muted {
+            color: var(--muted);
+        }
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .skills-list span {
+            background: var(--silver-light);
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid var(--line);
+            transition: all 0.3s ease;
+        }
+        .skills-list span:hover {
+            border-color: var(--blue);
+            box-shadow: 0 0 20px var(--glow);
+        }
+        .about-image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            height: 380px;
+            background: var(--silver-light);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+        }
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .about-stats {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .about-stats .stat {
+            background: var(--white);
+            padding: 16px 24px;
+            border-radius: 14px;
+            flex: 1;
+            min-width: 110px;
+            border: 1px solid var(--line);
+            text-align: center;
+        }
+        .about-stats .stat .label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--muted);
+            letter-spacing: .12em;
+        }
+        .about-stats .stat .value {
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+        .contact-grid h2 {
+            font-size: clamp(38px, 5vw, 72px);
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+        }
+        .contact-grid h2 .highlight {
+            color: var(--blue);
+        }
+        .contact-image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            height: 340px;
+            background: var(--silver-light);
+            margin-top: 28px;
+            border: 1px solid var(--line);
+        }
+        .contact-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .contact-info {
+            display: grid;
+            gap: 24px;
+            margin-top: 20px;
+        }
+        .contact-info .item label {
+            font-size: 11px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .contact-info .item p {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 40px 48px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            background: var(--white);
+            font-size: 12px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        footer .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        footer .footer-logo img {
+            height: 32px;
+            width: auto;
+        }
+        footer .footer-logo span {
+            font-weight: 700;
+            color: var(--text);
+        }
+        footer .footer-logo span .blue {
+            color: var(--blue);
+        }
+
+        /* =============================================
+                   RESPONSIVE
+                ============================================= */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero h1 {
+                font-size: clamp(40px, 8vw, 60px);
+            }
+            .hero-desc {
+                max-width: 100%;
+            }
+            .hero-image {
+                height: 300px;
+            }
+        }
+        @media (max-width: 900px) {
+            nav {
+                padding: 14px 24px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .logo .slogan {
+                display: none;
+            }
+            .logo img {
+                height: 38px;
+            }
+            .nav-links {
+                gap: 18px;
+            }
+            .nav-cta .btn-pill {
+                padding: 8px 18px;
+                font-size: 10px;
+            }
+            .hero {
+                padding: 140px 0 60px;
+            }
+            .container {
+                padding: 0 24px;
+            }
+            .section {
+                padding: 60px 0;
+            }
+            .section-head {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                margin-bottom: 40px;
+            }
+            .section-head p {
+                text-align: left;
+                max-width: 100%;
+            }
+            .works-grid {
+                grid-template-columns: 1fr;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+                border-radius: 16px;
+            }
+            .service-item {
+                min-height: 140px;
+                padding: 24px 20px;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .about-image {
+                height: 260px;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .contact-image {
+                height: 200px;
+            }
+            footer {
+                padding: 24px 20px;
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+            }
+            .preloader-logo img {
+                height: 70px;
+            }
+            .preloader-btn {
+                font-size: 13px;
+                padding: 14px 28px;
+                letter-spacing: 4px;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-secondary,
+            .hero-buttons .btn-outline {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero {
+                padding: 120px 0 40px;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .hero-image {
+                height: 200px;
+            }
+            .logo img {
+                height: 30px;
+            }
+            .nav-links li a {
+                font-size: 9px;
+                letter-spacing: .06em;
+            }
+            .card-img {
+                height: 200px;
+            }
+            .preloader-logo img {
+                height: 55px;
+            }
+            .preloader-btn {
+                font-size: 11px;
+                padding: 12px 20px;
+                letter-spacing: 3px;
+            }
+            .preloader-sub {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =============================================
+    PRELOADER / BIENVENIDA
+    ============================================= -->
+    <div id="preloader">
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="preloader-logo">
+            <img src="logo.png" alt="Binary Vision" />
+        </div>
+        <button class="preloader-btn" id="btnWelcome">Bienvenido a Binary Vision</button>
+        <div class="preloader-sub" id="subText">Brilliant · Innovative · Visionary</div>
+        <div class="click-hint" id="clickHint">— haz clic para continuar —</div>
+    </div>
+
+    <!-- =============================================
+    CONTENIDO PRINCIPAL
+    ============================================= -->
+    <div id="main-content">
+
+        <!-- ===== NAV ===== -->
+        <nav id="navbar">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Binary Vision" />
+                <span class="slogan">Desarrollo web • Automatización • Soluciones Digitales</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#work">Workspaces</a></li>
+                <li><a href="#services">Servicios</a></li>
+                <li><a href="#about">Sobre Mí</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a class="btn-pill" href="https://wa.me/529912040186" target="_blank">Let's Talk</a>
+            </div>
+        </nav>
+
+        <!-- ===== HERO CON BOTONES PRO ===== -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    <div>
+                        <h1 class="serif">
+                            Mejorando un <i>Futuro Más</i><br />
+                            <span class="highlight">Sostenible</span><br />
+                            — por <span class="name">Pablo</span>
+                        </h1>
+                        <p class="hero-desc">
+                            <strong>Binary Vision</strong> — Desarrollo web, automatización y soluciones digitales
+                            minimalistas, rápidas y que venden. Desde <strong>Cansahcab, Yucatán</strong> para todo México.
+                        </p>
+
+                        <!-- BADGES -->
+                        <div class="hero-badges">
+                            <span class="badge blue">🚀 Disponible</span>
+                            <span class="badge">📍 Mérida, Yucatán</span>
+                            <span class="badge">💻 Part-time · Remoto · Freelance</span>
+                        </div>
+
+                        <!-- ===== BOTONES PRO ===== -->
+                        <div class="hero-buttons">
+                            <a href="#contact" class="btn-primary">
+                                <span>💬</span> Contáctame
+                            </a>
+                            <a href="#services" class="btn-secondary">
+                                <span>⚡</span> Ver servicios
+                            </a>
+                            <a href="#work" class="btn-outline">
+                                <span>→</span> Ver trabajos
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800" alt="Oficina moderna" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== WORK ===== -->
+        <section id="work" class="section bg-white">
+            <div class="container">
+                <div class="section-head">
+                    <h2 class="serif">Descubre Nuestros <span class="blue">Workspaces</span> &amp; Trabajos Seleccionados</h2>
+                    <p>Proyectos reales que combinan estética premium, rendimiento y automatización.</p>
+                </div>
+                <div class="works-grid">
+                    <div class="card">
+                        <div class="card-img"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800" alt="Landing Pages" /></div>
+                        <div class="card-body"><h4>Landing Pages</h4><span>2026</span></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800" alt="E-Commerce" /></div>
+                        <div class="card-body"><h4>E-Commerce</h4><span>2026</span></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800" alt="Automatización" /></div>
+                        <div class="card-body"><h4>Automatización</h4><span>2026</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SERVICES ===== -->
+        <section id="services" class="section bg-light">
+            <div class="container">
+                <div class="section-head">
+                    <h2 class="serif">Esto es lo que hacemos <span class="blue">mejor</span>.</h2>
+                    <p>Sin plantillas genéricas. Código limpio y diseño editorial de alto nivel.</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <span class="num">01</span>
+                        <div>
+                            <h3>Desarrollo Web Premium</h3>
+                            <p>Webs rápidas, responsive y optimizadas para SEO.</p>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <span class="num">02</span>
+                        <div>
+                            <h3>Automatización</h3>
+                            <p>WhatsApp, CRM, pagos, reservas. Automatizamos tu negocio.</p>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <span class="num">03</span>
+                        <div>
+                            <h3>Soluciones Digitales</h3>
+                            <p>Hosting, dominio y soporte incluido.</p>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <span class="num">04</span>
+                        <div>
+                            <h3>Branding &amp; Estrategia</h3>
+                            <p>Identidad, logo y contenido premium.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ABOUT ===== -->
+        <section id="about" class="section bg-white">
+            <div class="container">
+                <div class="section-head">
+                    <h2 class="serif">Sobre <span class="blue">Pablo Canché</span></h2>
+                    <p>Junior Web Developer &amp; Automation Specialist — apasionado por la mejora continua.</p>
+                </div>
+                <div class="about-grid">
+                    <div class="about-text">
+                        <p><strong>Hola, soy Pablo.</strong> Desarrollo soluciones web y automatizaciones que optimizan procesos y mejoran la productividad de los negocios.</p>
+                        <p class="muted">Combino <strong>Python</strong>, bases de datos (MySQL, PostgreSQL), Excel avanzado y desarrollo frontend (HTML, CSS, JavaScript) para crear herramientas a medida.</p>
+                        <div class="skills-list">
+                            <span>Python</span>
+                            <span>Automatización</span>
+                            <span>MySQL</span>
+                            <span>PostgreSQL</span>
+                            <span>Excel Avanzado</span>
+                            <span>HTML / CSS</span>
+                            <span>JavaScript</span>
+                            <span>Dashboards</span>
+                            <span>Auditorías</span>
+                            <span>Mejora Continua</span>
+                        </div>
+                        <div class="about-stats">
+                            <div class="stat"><span class="label">Part-time</span><div class="value">✅ Disponible</div></div>
+                            <div class="stat"><span class="label">Remoto</span><div class="value">🌎 Sí</div></div>
+                            <div class="stat"><span class="label">Freelance</span><div class="value">✍️ Abierto</div></div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <img src="pablo-original.jpeg" alt="Pablo Canché" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTACT ===== -->
+        <section id="contact" class="section bg-light">
+            <div class="container">
+                <div class="contact-grid">
+                    <div>
+                        <h2 class="serif">Hablemos de tu <span class="highlight">proyecto</span> —</h2>
+                        <div class="contact-image">
+                            <img src="pablo-original.jpeg" alt="Pablo Canché - Contacto" />
+                        </div>
+                    </div>
+                    <div>
+                        <div class="contact-info">
+                            <div class="item">
+                                <label>📧 Email</label>
+                                <p>contacto@binaryvision.com</p>
+                            </div>
+                            <div class="item">
+                                <label>📱 WhatsApp</label>
+                                <p>+52 991 204 0186</p>
+                            </div>
+                            <div class="item">
+                                <label>📍 Ubicación</label>
+                                <p>Cansahcab, Yucatán, México</p>
+                            </div>
+                            <div class="item">
+                                <label>⏰ Disponibilidad</label>
+                                <p>Part-time · Remoto · Freelance</p>
+                            </div>
+                        </div>
+                        <a class="btn-primary" href="https://wa.me/529912040186?text=Hola%20Pablo%20vi%20tu%20web" target="_blank" style="margin-top:24px;display:inline-flex;">
+                            💬 Enviar mensaje por WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer>
+            <div class="footer-logo">
+                <img src="logo.png" alt="Binary Vision" />
+                <span>BINARY <span class="blue">VISION</span> — Pablo Canché</span>
+            </div>
+            <span>Cansahcab, Yucatán — México</span>
+        </footer>
+
+    </div>
+    <!-- ===== FIN MAIN-CONTENT ===== -->
+
+    <!-- =============================================
+    SCRIPT
+    ============================================= -->
+    <script>
+        // === PRELOADER ===
+        const preloader = document.getElementById('preloader');
+        const mainContent = document.getElementById('main-content');
+        const btnWelcome = document.getElementById('btnWelcome');
+        const subText = document.getElementById('subText');
+        const clickHint = document.getElementById('clickHint');
+        let isRevealed = false;
+
+        function revealWelcome() {
+            if (isRevealed) return;
+            isRevealed = true;
+
+            subText.classList.add('visible');
+            clickHint.classList.add('hidden');
+
+            btnWelcome.textContent = '✅ ¡Bienvenido!';
+            btnWelcome.style.color = '#22c55e';
+            btnWelcome.style.borderColor = '#22c55e';
+            btnWelcome.style.animation = 'none';
+            btnWelcome.style.cursor = 'default';
+
+            setTimeout(function() {
+                preloader.classList.add('hidden');
+                mainContent.classList.add('visible');
+            }, 2800);
+        }
+
+        btnWelcome.addEventListener('click', revealWelcome);
+        btnWelcome.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                revealWelcome();
+            }
+        });
+
+        // === NAV SCROLL ===
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // === LLAMAR ATENCIÓN ===
+        setTimeout(function() {
+            if (!isRevealed) {
+                btnWelcome.style.animation = 'pulseBtn 1.2s ease-in-out 3';
+                clickHint.style.opacity = '0.8';
+            }
+        }, 5000);
+    </script>
+
+</body>
+</html>
